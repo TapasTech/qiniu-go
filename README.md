@@ -1,4 +1,4 @@
-# qiniuGo
+# qiniu-go
 
 往七牛传静态文件
 
@@ -7,7 +7,7 @@
 install
 
 ```bash
-npm i -D TapasTech/qiniuGo
+npm i -D TapasTech/qiniu-go
 ```
 
 run

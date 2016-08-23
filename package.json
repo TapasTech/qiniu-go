@@ -1,5 +1,5 @@
 {
-  "name": "qiniuGo",
+  "name": "qiniu-go",
   "private": true,
   "version": "0.1.0",
   "description": "upload files to qiniu cdn",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TapasTech/qiniuGo.git"
+    "url": "git+https://github.com/TapasTech/qiniu-go.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/TapasTech/qiniuGo/issues"
+    "url": "https://github.com/TapasTech/qiniu-go/issues"
   },
-  "homepage": "https://github.com/TapasTech/qiniuGo#readme",
+  "homepage": "https://github.com/TapasTech/qiniu-go#readme",
   "dependencies": {
     "argv": "0.0.2",
     "co": "^4.6.0",
