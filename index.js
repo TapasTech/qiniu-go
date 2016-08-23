@@ -8,7 +8,7 @@ const {options} = argv.option([
   {
     name: 'source',
     short: 's',
-    type: 'path',
+    type: 'list,path',
     description: 'File directory ready to upload',
   },
   {
@@ -47,14 +47,16 @@ qiniu.conf.ACCESS_KEY = AK;
 qiniu.conf.SECRET_KEY = SK;
 
 co(function *() {
-  const files = yield readdir(SOURCE_DIR);
+  const dirs = Array.isArray(SOURCE_DIR) ? SOURCE_DIR : [SOURCE_DIR];
   const promises = [];
-  files.forEach(file => {
-    const filePath = path.join(SOURCE_DIR, file);
-    const stats = fs.statSync(filePath);
-    if (!stats.isFile())
-      return;
-    promises.push(uploadFile(`${PREFIX}${file}`, filePath));
+  dirs.reduce((previous, dir) => {
+    readdir(dir).forEach(file => {
+      previous.push(file);
+    });
+    return previous;
+  }, []).forEach(file => {
+    const filename = path.basename(file);
+    promises.push(uploadFile(`${PREFIX}${filename}`, file));
   });
   return yield promises;
 })
@@ -66,12 +68,6 @@ co(function *() {
   console.error(err);
 });
 
-/**
- * @desc upload file...
- * @param {String} key file path on CDN
- * @param {String} filePath local file path
- * @return {Promise}
- */
 function uploadFile(key, filePath) {
   const uptoken = getUptoken(key);
   const extra = new qiniu.io.PutExtra();
@@ -90,13 +86,14 @@ function getUptoken(key) {
 }
 
 function readdir(dir) {
-  return new Promise((resolve, reject) => {
-    fs.readdir(dir, (err, files) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve(files);
-    });
+  const ret = [];
+  const files = fs.readdirSync(dir);
+  files.forEach(file => {
+    const filePath = path.join(dir, file);
+    const stats = fs.statSync(filePath);
+    if (!stats.isFile())
+      return;
+    ret.push(filePath);
   });
+  return ret;
 }
