@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const argv = require('argv');
 const co = require('co');
 const fs = require('fs');
