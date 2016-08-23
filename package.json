@@ -1,0 +1,26 @@
+{
+  "name": "qiniuGo",
+  "private": true,
+  "version": "0.1.0",
+  "description": "upload files to qiniu cdn",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TapasTech/qiniuGo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TapasTech/qiniuGo/issues"
+  },
+  "homepage": "https://github.com/TapasTech/qiniuGo#readme",
+  "dependencies": {
+    "argv": "0.0.2",
+    "co": "^4.6.0",
+    "qiniu": "^6.1.11"
+  }
+}
