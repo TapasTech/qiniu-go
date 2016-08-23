@@ -5,7 +5,7 @@
   "description": "upload files to qiniu cdn",
   "main": "index.js",
   "bin": {
-    "qiniuGo": "index.js"
+    "qiniu-go": "index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

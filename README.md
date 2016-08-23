@@ -2,10 +2,18 @@
 
 往七牛传静态文件
 
-## run
+## how to use
+
+install
 
 ```bash
-node index.js \
+npm i -D TapasTech/qiniuGo
+```
+
+run
+
+```bash
+node_modules/.bin/qiniu-go \
 --source=dist \
 --source=dist/images \
 --bucket=hugo-assets \
