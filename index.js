@@ -50,16 +50,17 @@ co(function *() {
   const files = yield readdir(SOURCE_DIR);
   const promises = [];
   files.forEach(file => {
-    if (!/\.js$/.test(file))
-      return;
     const filePath = path.join(SOURCE_DIR, file);
+    const stats = fs.statSync(filePath);
+    if (!stats.isFile())
+      return;
     promises.push(uploadFile(`${PREFIX}${file}`, filePath));
   });
   return yield promises;
 })
 .then(ret => {
-  console.log('静态资源已经成功上传到七牛!');
   console.log(JSON.stringify(ret, null, 2));
+  console.log('upload done!');
 })
 .catch(err => {
   console.error(err);
