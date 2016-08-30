@@ -14,6 +14,11 @@ const {options} = argv.option([
     description: 'File directory ready to upload',
   },
   {
+    name: 'extension',
+    type: 'list,string',
+    description: 'Restrict file type',
+  },
+  {
     name: 'bucket',
     short: 'b',
     type: 'string',
@@ -41,6 +46,7 @@ const {
   prefix: PREFIX,
   bucket: BUCKET,
   source: SOURCE_DIR,
+  extension: EXTENSION,
   ak: AK = process.env.QINIU_DTCJ_AK,
   sk: SK = process.env.QINIU_DTCJ_SK,
 } = options;
@@ -50,6 +56,12 @@ qiniu.conf.SECRET_KEY = SK;
 
 co(function *() {
   const dirs = Array.isArray(SOURCE_DIR) ? SOURCE_DIR : [SOURCE_DIR];
+  const exts = (Array.isArray(EXTENSION) ? EXTENSION : [EXTENSION]).reduce((ret, ext) => {
+    // 考虑没有extension的请款g
+    if (ext)
+      ret.push(`.${ext}`);
+    return ret;
+  }, []);
   const promises = [];
   dirs.reduce((previous, dir) => {
     readdir(dir).forEach(file => {
@@ -57,6 +69,9 @@ co(function *() {
     });
     return previous;
   }, []).forEach(file => {
+    const ext = path.extname(file);
+    if (exts.length && !exts.includes(ext))
+      return;
     const filename = path.basename(file);
     promises.push(uploadFile(`${PREFIX}${filename}`, file));
   });

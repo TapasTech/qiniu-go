@@ -25,6 +25,7 @@ node_modules/.bin/qiniu-go \
 ## options
 
 * source 目标文件夹，文件夹下所有文件会被上传到cdn，现在只能传一级文件夹，但可以设置多个source值
+* extension 只上传选定拓展名的文件，可以设置多个extension
 * bucket 目标bucket名称
 * prefix 链接前缀
 * ak 七牛access key，也可以设置全局变量`QINIU_DTCJ_AK`
